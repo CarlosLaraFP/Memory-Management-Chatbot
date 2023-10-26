@@ -24,7 +24,7 @@ Your goal is to use the course knowledge to optimize the ChatBot program from a 
 * wxWidgets >= 3.0
   * Linux: `sudo apt-get install libwxgtk3.0-gtk3-dev libwxgtk3.0-gtk3-0v5`. If you are facing unmet dependency issues, refer to the [official page](https://wiki.codelite.org/pmwiki.php/Main/WxWidgets30Binaries#toc2) for installing the unmet dependencies.
   * Mac: There is a [homebrew installation available](https://formulae.brew.sh/formula/wxmac).
-  * Installation instructions can be found [here](https://wiki.wxwidgets.org/Install). Some version numbers may need to be changed in instructions to install v3.0 or greater.
+  * Windows: Download wxWidgets source code ZIP, extract all, navigate to build/msw, open the .sln that matches your version of Visual Studio, and build the entire project. Refer to CMakeLists.txt and CMakeSettings.json for Windows-specific configuration.
 
 ## Basic Build Instructions
 
@@ -32,6 +32,10 @@ Your goal is to use the course knowledge to optimize the ChatBot program from a 
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
 4. Run it: `./membot`.
+
+Windows:
+
+Visual Studio Developer PowerShell: Instead of "make", run "MSBuild Membot.sln" followed by ".\Debug\membot.exe"
 
 ## Project Task Details
 
