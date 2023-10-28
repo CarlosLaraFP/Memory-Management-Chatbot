@@ -37,24 +37,24 @@ public:
     // getter / setter
     int GetID() { return _id; }
     int GetNumberOfChildEdges() { return _childEdges.size(); }
-    GraphEdge *GetChildEdgeAtIndex(int index);
+    GraphEdge* GetChildEdgeAtIndex(int index);
     std::vector<std::string> GetAnswers() { return _answers; }
     int GetNumberOfParents() { return _parentEdges.size(); }
 
     // proprietary functions
     void AddToken(std::string token); // add answers to list
-    void AddEdgeToParentNode(GraphEdge *edge);
-    void AddEdgeToChildNode(GraphEdge *edge);
+    void AddEdgeToParentNode(GraphEdge* edge);
+    void AddEdgeToChildNode(GraphEdge* edge);
 
     //// STUDENT CODE
     ////
 
-    void MoveChatbotHere(ChatBot *chatbot);
+    void MoveChatbotHere(ChatBot* chatbot);
 
     ////
     //// EOF STUDENT CODE
 
-    void MoveChatbotToNewNode(GraphNode *newNode);
+    void MoveChatbotToNewNode(GraphNode* newNode);
 };
 
 #endif /* GRAPHNODE_H_ */
