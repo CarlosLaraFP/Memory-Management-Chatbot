@@ -34,6 +34,7 @@ ChatLogic::~ChatLogic()
 
     // delete chatbot instance
     delete _chatBot;
+    _chatBot = nullptr;
 
     // delete all nodes
     for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
@@ -56,6 +57,7 @@ void ChatLogic::AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T 
 {
     // find all occurences for current node
     auto token = tokens.begin();
+
     while (true)
     {
         token = std::find_if(token, tokens.end(), [&tokenID](const std::pair<std::string, std::string> &pair) { return pair.first == tokenID;; });
@@ -243,7 +245,7 @@ void ChatLogic::SendMessageToUser(std::string message)
     _panelDialog->PrintChatbotResponse(message);
 }
 
-wxBitmap *ChatLogic::GetImageFromChatbot()
+wxBitmap* ChatLogic::GetImageFromChatbot()
 {
     return _chatBot->GetImageHandle();
 }

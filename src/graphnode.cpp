@@ -11,7 +11,9 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    delete _chatBot; 
+    // GraphNode destructor should not delete what it does not own; 
+    // PanelDialog initialized it and therefore is responsible for releasing it.
+    //delete _chatBot; 
 
     ////
     //// EOF STUDENT CODE

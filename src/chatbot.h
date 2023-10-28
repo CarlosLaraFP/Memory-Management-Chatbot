@@ -11,12 +11,12 @@ class ChatBot
 {
 private:
     // data handles (owned)
-    wxBitmap *_image; // avatar image
+    wxBitmap* _image; // avatar image
 
     // data handles (not owned)
-    GraphNode *_currentNode;
-    GraphNode *_rootNode;
-    ChatLogic *_chatLogic;
+    GraphNode* _currentNode;
+    GraphNode* _rootNode;
+    ChatLogic* _chatLogic;
 
     // proprietary functions
     int ComputeLevenshteinDistance(std::string s1, std::string s2);
@@ -28,17 +28,17 @@ public:
     ~ChatBot();
 
     //// STUDENT CODE
-    ////
+    //// RULE OF FIVE: WE NEED MOVE CONSTRUCTOR, COPY CONSTRUCTOR, MOVE ASSIGNMENT OPERATOR, AND COPY ASSIGNMENT OPERATOR
 
     ////
     //// EOF STUDENT CODE
 
     // getters / setters
-    void SetCurrentNode(GraphNode *node);
-    void SetRootNode(GraphNode *rootNode) { _rootNode = rootNode; }
-    void SetChatLogicHandle(ChatLogic *chatLogic) { _chatLogic = chatLogic; }
+    void SetCurrentNode(GraphNode* node);
+    void SetRootNode(GraphNode* rootNode) { _rootNode = rootNode; }
+    void SetChatLogicHandle(ChatLogic* chatLogic) { _chatLogic = chatLogic; }
     ChatLogic* GetChatLogicHandle() { return _chatLogic; }
-    wxBitmap *GetImageHandle() { return _image; }
+    wxBitmap* GetImageHandle() { return _image; }
 
     // communication
     void ReceiveMessageFromUser(std::string message);

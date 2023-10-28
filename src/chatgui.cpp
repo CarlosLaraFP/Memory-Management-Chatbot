@@ -19,17 +19,17 @@ std::string imgBasePath = dataPath + "images/";
 bool ChatBotApp::OnInit()
 {
     // create window with name and show it
-    ChatBotFrame *chatBotFrame = new ChatBotFrame(wxT("Udacity ChatBot"));
+    ChatBotFrame* chatBotFrame = new ChatBotFrame(wxT("Udacity ChatBot"));
     chatBotFrame->Show(true);
 
     return true;
 }
 
 // wxWidgets FRAME
-ChatBotFrame::ChatBotFrame(const wxString &title) : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(width, height))
+ChatBotFrame::ChatBotFrame(const wxString& title) : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(width, height))
 {
     // create panel with background image
-    ChatBotFrameImagePanel *ctrlPanel = new ChatBotFrameImagePanel(this);
+    ChatBotFrameImagePanel* ctrlPanel = new ChatBotFrameImagePanel(this);
 
     // create controls and assign them to control panel
     _panelDialog = new ChatBotPanelDialog(ctrlPanel, wxID_ANY);
@@ -40,7 +40,7 @@ ChatBotFrame::ChatBotFrame(const wxString &title) : wxFrame(NULL, wxID_ANY, titl
     Connect(idTextXtrl, wxEVT_TEXT_ENTER, wxCommandEventHandler(ChatBotFrame::OnEnter));
 
     // create vertical sizer for panel alignment and add panels
-    wxBoxSizer *vertBoxSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* vertBoxSizer = new wxBoxSizer(wxVERTICAL);
     vertBoxSizer->AddSpacer(90);
     vertBoxSizer->Add(_panelDialog, 6, wxEXPAND | wxALL, 0);
     vertBoxSizer->Add(_userTextCtrl, 1, wxEXPAND | wxALL, 5);
@@ -50,7 +50,7 @@ ChatBotFrame::ChatBotFrame(const wxString &title) : wxFrame(NULL, wxID_ANY, titl
     this->Centre();
 }
 
-void ChatBotFrame::OnEnter(wxCommandEvent &WXUNUSED(event))
+void ChatBotFrame::OnEnter(wxCommandEvent& WXUNUSED(event))
 {
     // retrieve text from text control
     wxString userText = _userTextCtrl->GetLineText(0);
@@ -144,7 +144,7 @@ ChatBotPanelDialog::~ChatBotPanelDialog()
 void ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser)
 {
     // add a single dialog element to the sizer
-    ChatBotPanelDialogItem *item = new ChatBotPanelDialogItem(this, text, isFromUser);
+    ChatBotPanelDialogItem* item = new ChatBotPanelDialogItem(this, text, isFromUser);
     _dialogSizer->Add(item, 0, wxALL | (isFromUser == true ? wxALIGN_LEFT : wxALIGN_RIGHT), 8);
     _dialogSizer->Layout();
 
@@ -195,7 +195,7 @@ ChatBotPanelDialogItem::ChatBotPanelDialogItem(wxPanel *parent, wxString text, b
     : wxPanel(parent, -1, wxPoint(-1, -1), wxSize(-1, -1), wxBORDER_NONE)
 {
     // retrieve image from chatbot
-    wxBitmap *bitmap = isFromUser == true ? nullptr : ((ChatBotPanelDialog*)parent)->GetChatLogicHandle()->GetImageFromChatbot(); 
+    wxBitmap* bitmap = isFromUser == true ? nullptr : ((ChatBotPanelDialog*)parent)->GetChatLogicHandle()->GetImageFromChatbot(); 
 
     // create image and text
     _chatBotImg = new wxStaticBitmap(this, wxID_ANY, (isFromUser ? wxBitmap(imgBasePath + "user.png", wxBITMAP_TYPE_PNG) : *bitmap), wxPoint(-1, -1), wxSize(-1, -1));
@@ -203,7 +203,7 @@ ChatBotPanelDialogItem::ChatBotPanelDialogItem(wxPanel *parent, wxString text, b
     _chatBotTxt->SetForegroundColour(isFromUser == true ? wxColor(*wxBLACK) : wxColor(*wxWHITE));
 
     // create sizer and add elements
-    wxBoxSizer *horzBoxSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* horzBoxSizer = new wxBoxSizer(wxHORIZONTAL);
     horzBoxSizer->Add(_chatBotTxt, 8, wxEXPAND | wxALL, 1);
     horzBoxSizer->Add(_chatBotImg, 2, wxEXPAND | wxALL, 1);
     this->SetSizer(horzBoxSizer);
