@@ -11,42 +11,108 @@
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot()
 {
-    // invalidate data handles
-    _image = nullptr;
+    _image = NULL; // wxWidgets uses NULL and not nullptr
     _chatLogic = nullptr;
     _rootNode = nullptr;
+    _currentNode = nullptr;
 }
 
 // constructor WITH memory allocation
 ChatBot::ChatBot(std::string filename)
 {
-    std::cout << "ChatBot Constructor" << std::endl;
+    std::cout << "ChatBot constructor called" << std::endl;
     
     // invalidate data handles
     _chatLogic = nullptr;
     _rootNode = nullptr;
+    _currentNode = nullptr;
 
     // load image into heap memory
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
+// Destructor
 ChatBot::~ChatBot()
 {
-    std::cout << "ChatBot Destructor" << std::endl;
+    std::cout << "ChatBot destructor called" << std::endl;
 
-    // deallocate heap memory
-    if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
+    // deallocate heap memory (if allocated by constructor)
+    if (_image != NULL)
     {
-        delete _image; // error
+        delete _image;
         _image = NULL;
     }
 }
 
-//// STUDENT CODE
-////
+// Copy constructor
+ChatBot::ChatBot(const ChatBot& chatbot) 
+{
+    std::cout << "ChatBot copy constructor called" << std::endl;
 
-////
-//// EOF STUDENT CODE
+    _image = new wxBitmap(*chatbot._image);
+    _chatLogic = chatbot._chatLogic;
+    _rootNode = chatbot._rootNode;
+    _currentNode = chatbot._currentNode;
+    // chatbot will be cleaned up at the end of its scope in the caller
+}
+
+// Copy assignment operator
+ChatBot& ChatBot::operator=(const ChatBot& chatbot)
+{
+    std::cout << "ChatBot copy assignment operator called" << std::endl;
+
+    if (this == &chatbot) { return *this; }
+
+    delete _image;
+    _image = new wxBitmap(*chatbot._image);
+    _chatLogic = chatbot._chatLogic;
+    _rootNode = chatbot._rootNode;
+    _currentNode = chatbot._currentNode;
+    // chatbot will be cleaned up at the end of its scope in the caller
+
+    return *this;
+}
+
+// Move constructor
+ChatBot::ChatBot(ChatBot&& chatbot) noexcept
+{
+    std::cout << "ChatBot move constructor called" << std::endl;
+
+    _image = chatbot._image;
+    chatbot._image = NULL;
+
+    _chatLogic = chatbot._chatLogic;
+    chatbot._chatLogic = nullptr;
+
+    _rootNode = chatbot._rootNode;
+    chatbot._rootNode = nullptr;
+
+    _currentNode = chatbot._currentNode;
+    chatbot._currentNode = nullptr;
+}
+
+// Move assignment operator
+ChatBot& ChatBot::operator=(ChatBot&& chatbot) noexcept
+{
+    std::cout << "ChatBot move assignment operator called" << std::endl;
+
+    if (this == &chatbot) { return *this; }
+
+    delete _image;
+    _image = chatbot._image;
+    chatbot._image = NULL;
+
+    _chatLogic = chatbot._chatLogic;
+    chatbot._chatLogic = nullptr;
+
+    _rootNode = chatbot._rootNode;
+    chatbot._rootNode = nullptr;
+
+    _currentNode = chatbot._currentNode;
+    chatbot._currentNode = nullptr;
+
+    return *this;
+}
 
 void ChatBot::ReceiveMessageFromUser(std::string message)
 {

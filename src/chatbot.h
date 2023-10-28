@@ -26,12 +26,10 @@ public:
     ChatBot();                     // constructor WITHOUT memory allocation
     ChatBot(std::string filename); // constructor WITH memory allocation
     ~ChatBot();
-
-    //// STUDENT CODE
-    //// RULE OF FIVE: WE NEED MOVE CONSTRUCTOR, COPY CONSTRUCTOR, MOVE ASSIGNMENT OPERATOR, AND COPY ASSIGNMENT OPERATOR
-
-    ////
-    //// EOF STUDENT CODE
+    ChatBot(const ChatBot& chatbot); // copy constructor
+    ChatBot& operator=(const ChatBot& chatbot); // copy assignment operator
+    ChatBot(ChatBot&& chatbot) noexcept;// move constructor
+    ChatBot& operator=(ChatBot&& chatbot) noexcept;// move assignment operator
 
     // getters / setters
     void SetCurrentNode(GraphNode* node);
