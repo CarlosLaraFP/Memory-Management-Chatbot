@@ -33,20 +33,7 @@ ChatLogic::~ChatLogic()
     // delete chatbot instance
     delete _chatBot;
     _chatBot = nullptr;
-
     // _nodes deleted automatically since each element is a unique pointer
-
-    // delete all nodes
-    //for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
-    //{
-    //    delete *it;
-    //}
-
-    // delete all edges
-    for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
-    {
-        delete *it;
-    }
 }
 
 template <typename T>
@@ -57,7 +44,7 @@ void ChatLogic::AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T&
 
     while (true)
     {
-        token = std::find_if(token, tokens.end(), [&tokenID](const std::pair<std::string, std::string> &pair) { return pair.first == tokenID;; });
+        token = std::find_if(token, tokens.end(), [&tokenID](const std::pair<std::string, std::string>& pair) { return pair.first == tokenID; });
         if (token != tokens.end())
         {
             element.AddToken(token->second); // add new keyword to edge
@@ -153,18 +140,17 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             auto childNode = std::find_if(_nodes.begin(), _nodes.end(), [&childToken](const std::unique_ptr<GraphNode>& node) { return node->GetID() == std::stoi(childToken->second); });
 
                             // create new edge
-                            GraphEdge* edge = new GraphEdge(id);
+                            std::unique_ptr<GraphEdge> edge = std::make_unique<GraphEdge>(id);
                             // dereference iterators to get unique pointers
                             edge->SetChildNode((*childNode).get());
                             edge->SetParentNode((*parentNode).get());
-                            _edges.push_back(edge);
 
                             // find all keywords for current node
                             AddAllTokensToElement("KEYWORD", tokens, *edge);
 
                             // store reference in child node and parent node
-                            (*childNode)->AddEdgeToParentNode(edge);
-                            (*parentNode)->AddEdgeToChildNode(edge);
+                            (*childNode)->AddEdgeToParentNode(edge.get());
+                            (*parentNode)->AddEdgeToChildNode(std::move(edge));
                         }
                     }
                 }
