@@ -225,12 +225,12 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     //// EOF STUDENT CODE
 }
 
-void ChatLogic::SetPanelDialogHandle(ChatBotPanelDialog *panelDialog)
+void ChatLogic::SetPanelDialogHandle(ChatBotPanelDialog* panelDialog)
 {
     _panelDialog = panelDialog;
 }
 
-void ChatLogic::SetChatbotHandle(ChatBot *chatbot)
+void ChatLogic::SetChatbotHandle(ChatBot* chatbot)
 {
     _chatBot = chatbot;
 }
