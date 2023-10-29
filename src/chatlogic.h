@@ -27,7 +27,7 @@ private:
 
     // proprietary functions
     template <typename T>
-    void AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T& element);
+    void AddAllTokensToElement(std::string tokenID, tokenlist& tokens, T& element);
 
 public:
     // constructor / destructor
